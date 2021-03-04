@@ -19,7 +19,7 @@ def read_tecplot(grid, filename):
 
         lines = file_with_grid.readlines()
 
-        if lines[0] != '# EXPORT MODE=CHECK_POINT\n':
+        if lines[0] != '# EXPORT_MODE=CHECK_POINT\n':
             print(lines[0])
             raise ValueError('CHECK_POINT mode required')
 
@@ -389,7 +389,7 @@ def write_tecplot_header(filename, grid):
     :param filename: file to write in.
     """
     with open(filename, 'w') as f:
-        f.write('# EXPORT MODE=CHECK_POINT\n')
+        f.write('# EXPORT_MODE=CHECK_POINT\n')
         f.write('TITLE="GRID"\n')
         f.write('VARIABLES="X", "Y", "Z", "T", "Hw", "Hi", "HTC", "Beta", "TauX", "TauY", "TauZ"')
         # f.write('VARIABLES = "X", "Y", "Z", "T", "Hw", "Hi", "HTC", "Beta", "TauX", "TauY", "TauZ", "Alpha", ')
