@@ -37,7 +37,7 @@ if args.outdir:
     outdir = args.outdir
 
 meshes = [path for path in os.listdir(workdir) if os.path.isfile(path) and path.endswith('.dat')]
-print(meshes)
+
 start = time()
 
 for mesh in meshes:
@@ -48,7 +48,7 @@ for mesh in meshes:
     filename = mesh[mesh.rfind('/'):]
     outputfilename = outdir + '/' + mesh.replace('_r_', '_')
     write_tecplot(grid, outputfilename)
-    print(outputfilename)
+
     if args.verbosity > 0:
         print('Result grid was written into{}'.format(outputfilename))
 
