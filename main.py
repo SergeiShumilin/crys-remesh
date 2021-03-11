@@ -1,5 +1,5 @@
 import argparse
-from os.path import isfile
+import os
 from crysremesh.triangular_grid import Grid
 from crysremesh.io import read_tecplot, write_tecplot
 from crysremesh.algorithms import *
@@ -13,7 +13,7 @@ def choose_method(name):
 
 
 def check_argument(name):
-    if not isfile(name):
+    if not os.path.isfile(name):
         print('File {} does not exist'.format(name))
         exit(1)
     else:
@@ -22,25 +22,35 @@ def check_argument(name):
             exit(1)
 
 
+outdir = '.'
+
 parser = argparse.ArgumentParser()
-parser.add_argument('file', help='triangular mesh mesh .dat file')
+parser.add_argument('workdir', help='all grids in this dir will be smoothed')
+parser.add_argument('-o', '--outdir', help='all result grids will be stored here')
 parser.add_argument("-v", "--verbosity", action="count",
                     help="increase output verbosity", default=0)
 args = parser.parse_args()
 
-filename = args.file
-check_argument(filename)
+workdir = args.workdir
 
+if args.outdir:
+    outdir = args.outdir
+
+meshes = [path for path in os.listdir(workdir) if os.path.isfile(path) and path.endswith('.dat')]
+print(meshes)
 start = time()
-grid = Grid()
-read_tecplot(grid, filename)
+
+for mesh in meshes:
+    grid = Grid()
+    read_tecplot(grid, mesh)
+    if args.verbosity > 0:
+        print('Mesh read')
+    filename = mesh[mesh.rfind('/'):]
+    outputfilename = outdir + '/' + mesh.replace('_r_', '_')
+    write_tecplot(grid, outputfilename)
+    print(outputfilename)
+    if args.verbosity > 0:
+        print('Result grid was written into{}'.format(outputfilename))
 
 if args.verbosity > 0:
-    print('Mesh read')
-
-outputfilename = filename[:-4] + "_final.dat"
-write_tecplot(grid, outputfilename)
-
-if args.verbosity > 0:
-    print('Result grid was written into{}'.format(outputfilename))
     print('Total time:', time() - start)
