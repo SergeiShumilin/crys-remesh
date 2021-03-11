@@ -36,7 +36,7 @@ workdir = args.workdir
 if args.outdir:
     outdir = args.outdir
 
-meshes = [path for path in os.listdir(workdir) if os.path.isfile(path) and path.endswith('.dat')]
+meshes = [path for path in os.listdir(workdir)]
 
 start = time()
 
