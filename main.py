@@ -42,7 +42,7 @@ start = time()
 
 for mesh in meshes:
     grid = Grid()
-    read_tecplot(grid, mesh)
+    read_tecplot(grid, workdir + '/' + mesh)
     if args.verbosity > 0:
         print('Mesh read')
     filename = mesh[mesh.rfind('/'):]
