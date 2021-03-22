@@ -64,8 +64,6 @@ def read_tecplot(grid, filename):
             set_faces(grid, n, f)
             grid.Faces += f
 
-        grid.init_adjacent_faces_list_for_border_nodes()
-
 
 def parse_obj_node(line):
     coords = line.split(' ')
@@ -471,18 +469,6 @@ def write_variables(filename, nodes, faces, grid):
         for face in faces:
             f.write(str(face.fuzzy_median.z) + ' ')
         f.write('\n')
-
-        # for face in faces:
-        #     f.write(str(face.alpha_quality_measure()) + ' ')
-        # f.write('\n')
-
-        # for n in grid.Nodes:
-        #     if not n.fixed:
-        #         continue
-        #     for af in grid.adj_list_for_border_nodes[n.Id - 1, :]:
-        #         assert af == 0 or af == 1
-        #         f.write(str(af) + ' ')
-        #     f.write('\n')
 
 
 def write_connectivity_list(filename, faces):

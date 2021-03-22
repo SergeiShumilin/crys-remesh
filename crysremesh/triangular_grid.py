@@ -556,9 +556,6 @@ class Grid:
         print('mean alpha: {}\nmin alpha: {}'.format(mean_alpha_quality_measure ** (1 / len(self.Faces)),
                                                      min_alpha_quality_measure))
 
-    def init_adjacent_faces_list_for_border_nodes(self):
-        self.adj_list_for_border_nodes = zeros((len(self.Nodes), len(self.Faces)))
-
 
 class Zone:
     __doc__ = 'Class describing triangular_grid2 zone'

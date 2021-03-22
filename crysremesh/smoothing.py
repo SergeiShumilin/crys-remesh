@@ -298,7 +298,6 @@ class NullSpaceSmoothing(Smoothing):
         assert isinstance(node.Id, int)
 
         for f in neighbours:
-            # self.grid.adj_list_for_border_nodes[node.Id - 1, f.Id] = 1
             c = point_to_vector(f.centroid())
             c.sub(p)
 
